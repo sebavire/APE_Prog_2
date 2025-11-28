@@ -53,6 +53,16 @@ public class formularioArticulos extends javax.swing.JFrame {
                 "Id", "Nombre", "Precio"
             }
         ));
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMouseClicked(evt);
+            }
+        });
+        tabla.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tablaKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla);
 
         botonEliminar.setText("Eliminar");
@@ -152,8 +162,52 @@ public class formularioArticulos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
+    private void tablaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaKeyPressed
+        
+    }//GEN-LAST:event_tablaKeyPressed
+
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
         int fila = tabla.getSelectedRow();
+
+        if(fila != -1){
+            int id = Integer.parseInt(campoId.getText());
+            String nombre = campoNombre.getText();
+            int precio = Integer.parseInt(campoPrecio.getText());
+
+            Articulo modificado = new Articulo(id, nombre, precio);
+
+            inventario.modificarArticulo(fila, modificado);
+
+            actualizarTabla();
+            campoId.setText("");
+            campoNombre.setText("");
+            campoPrecio.setText("");
+        }
+    }//GEN-LAST:event_botonModificarActionPerformed
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+        int fila = tabla.getSelectedRow();
+        
+        int id = (Integer)tabla.getValueAt(fila, 0);
+        String nombre = (String)tabla.getValueAt(fila, 1);
+        int precio = (Integer)tabla.getValueAt(fila, 2);
+        
+        campoId.setText(String.valueOf(id));
+        campoNombre.setText(nombre);
+        campoPrecio.setText(String.valueOf(precio));
+    }//GEN-LAST:event_tablaMouseClicked
+
+    public void actualizarTabla(){
+        DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+        model.setRowCount(0);
+
+        for (Articulo a : inventario.getArticulos()) {
+            model.addRow(new Object[]{a.getId(), a.getNombre(), a.getPrecio()});
+        }
+    }
+
+    /*Modificar:
+    int fila = tabla.getSelectedRow();
         
         if(fila != -1){
             int id = Integer.parseInt(campoId.getText());
@@ -169,17 +223,8 @@ public class formularioArticulos extends javax.swing.JFrame {
             campoNombre.setText("");
             campoPrecio.setText("");
         }
-    }//GEN-LAST:event_botonModificarActionPerformed
-
-    public void actualizarTabla(){
-        DefaultTableModel model = (DefaultTableModel) tabla.getModel();
-        model.setRowCount(0);
-
-        for (Articulo a : inventario.getArticulos()) {
-            model.addRow(new Object[]{a.getId(), a.getNombre(), a.getPrecio()});
-        }
-    }
-
+    */
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonEliminar;

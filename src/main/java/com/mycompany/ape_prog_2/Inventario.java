@@ -21,4 +21,5 @@ public class Inventario {
         listaArticulos.set(posicion, a);
     }
     
+    
 }
