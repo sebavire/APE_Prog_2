@@ -1,18 +1,7 @@
 package com.mycompany.ape_prog_2;
 
 public class Articulo {
-    private int id;
-    //.................
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    private int id;  
     private String nombre;
     private int precio;
 
@@ -29,7 +18,6 @@ public class Articulo {
     public void setId(int id) {
         this.id = id;
     }
-    
     //..............
 
     public String getNombre() {
