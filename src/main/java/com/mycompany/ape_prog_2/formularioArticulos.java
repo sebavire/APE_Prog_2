@@ -1,5 +1,6 @@
 package com.mycompany.ape_prog_2;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class formularioArticulos extends javax.swing.JFrame {
@@ -111,7 +112,7 @@ public class formularioArticulos extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -126,9 +127,9 @@ public class formularioArticulos extends javax.swing.JFrame {
                     .addComponent(campoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(botonEliminar))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -136,7 +137,10 @@ public class formularioArticulos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
-            int id = Integer.parseInt(campoId.getText());
+            //Validar si los datos no son vacíos:
+            if(validarDatos()){
+                //se agrega el elemento
+                 int id = Integer.parseInt(campoId.getText());
             String nombre = campoNombre.getText();
             int precio = Integer.parseInt(campoPrecio.getText());
             
@@ -148,11 +152,28 @@ public class formularioArticulos extends javax.swing.JFrame {
             campoId.setText("");
             campoNombre.setText("");
             campoPrecio.setText("");
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "Faltan datos.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            }
+            
+            
+           
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public boolean validarDatos(){
+        if(campoId.getText().equals("") ||  campoNombre.getText().equals("") || campoPrecio.getText().equals("")){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         int fila = tabla.getSelectedRow();
         
